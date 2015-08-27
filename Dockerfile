@@ -36,7 +36,7 @@ COPY sites-available/default-ssl.conf /etc/apache2/sites-available/default-ssl.c
 RUN a2ensite default-ssl
 RUN a2enmod ssl
 
-VOLUME /etc/apache2 /etc/ssl /var/log/apache2 /var/www/html
+#VOLUME /etc/apache2 /etc/ssl /var/log/apache2 /var/www/html
 
 
 EXPOSE 80 443
