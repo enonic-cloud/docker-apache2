@@ -1,16 +1,12 @@
 # Base image
-FROM ubuntu:16.04
-
-MAINTAINER Erik Kaareng-Sunde esu@enonic.com
-
+FROM ubuntu:19.04
 #### Inspired by the tianon/apache2 image ####
-
-RUN apt-get update && apt-get install -y apache2
+LABEL "creator"="Erik Kaareng-Sunde erikks@redpill-linpro.com"
+LABEL "maintainer"="Diego Pasten dap@enonic.com"
 
 # let's copy a few of the settings from /etc/init.d/apache2
 ENV APACHE_CONFDIR /etc/apache2
 ENV APACHE_ENVVARS $APACHE_CONFDIR/envvars
-# and then a few more from $APACHE_CONFDIR/envvars itself
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
 ENV APACHE_RUN_DIR /var/run/apache2
@@ -19,8 +15,13 @@ ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_LOG_DIR /var/log/apache2
 ENV LANG C
 
-# ...
-RUN mkdir -p $APACHE_RUN_DIR $APACHE_LOCK_DIR $APACHE_LOG_DIR
+RUN apt-get update -y \
+  && apt-get upgrade -y \
+  && apt-get install -y apache2 \
+  && apt-get upgrade -y \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+  && mkdir -p $APACHE_RUN_DIR $APACHE_LOCK_DIR $APACHE_LOG_DIR
 
 # make CustomLog (access log) go to stdout instead of files
 #  and ErrorLog to stderr

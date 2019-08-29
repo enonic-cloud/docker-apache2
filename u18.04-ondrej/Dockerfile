@@ -1,5 +1,5 @@
 # Base image
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 LABEL "creator"="Erik Kaareng-Sunde erikks@redpill-linpro.com"
 LABEL "maintainer"="Diego Pasten dap@enonic.com"
@@ -23,6 +23,8 @@ ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_LOG_DIR /var/log/apache2
 ENV LANG C
 
+# make CustomLog (access log) go to stdout instead of files
+# and ErrorLog to stderr
 RUN mkdir -p $APACHE_RUN_DIR $APACHE_LOCK_DIR $APACHE_LOG_DIR \
   && find "$APACHE_CONFDIR" -type f -exec sed -ri ' \
     s!^(\s*CustomLog)\s+\S+!\1 /proc/self/fd/1!g; \
