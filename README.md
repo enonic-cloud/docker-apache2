@@ -19,10 +19,13 @@ Base apache2 image build on ubuntu 16.04
 ### u16.04-ondrej ( enoniccloud/apache2:u16.04-ondrej )
 Base apache2 image build on ubuntu 16.04 but added Ondřej Surý apache repository to add a newer version of apache to support http/2
 
+### u19.04 ( enoniccloud/apache2:u19.04 )
+Base apache2 image build on ubuntu 19.04
+
 ## Guides
 
 ### HTTP/2
-To enable http/2 support you have to use the `enoniccloud/apache2:u16.04-ondrej` image. This is because ubuntu as of now ( inc. ubuntu 17.10 ) do not ship with a apache2 that supports http/2.
+To enable http/2 support in u16.04 you have to use the `enoniccloud/apache2:u16.04-ondrej` image. This is because ubuntu 16.04 do not ship with a apache2 that supports http/2.
 
 Create a new `Dockerfile` for your project and base it on the `enoniccloud/apache2:u16.04-ondrej` image. Then enable the module. The file should look like this.
 ```
